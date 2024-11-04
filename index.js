@@ -1,7 +1,5 @@
-const math = require("./math");
+const data = require("./data.json");
 
-const { add, sub } = math;
+console.log(data);
 
-console.log(add(2, 3));
-console.log(sub(2, 3));
-
+// In Terminal if you run node --watch {filename} it will rerun automatically after you save the file
