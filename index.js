@@ -1,10 +1,21 @@
-function greet(name) {
-  console.log(`Hello ${name}`);
-}
+const EventEmitter = require("node:events");
 
-function higherOrderFunction(callback) {
-  const name = "Jaimin";
-  callback(name);
-}
+const emitter = new EventEmitter();
 
-higherOrderFunction(greet); // passing fn as an argument
+emitter.on("order-pizza", () => console.log("Pizza is being baked"));
+
+emitter.emit("order-pizza");
+
+// passing the argument
+
+emitter.on("order-pizzaArg", (size, topping) =>
+  console.log(`${size} Pizza is being baked with ${topping} topping`)
+);
+
+emitter.on("order-pizzaArg", (size) => {
+  if (size === "Large") console.log("Serving Drink Complimentry");
+});
+
+emitter.emit("order-pizzaArg", "Large", "Mushroom");
+
+// will run both functions of event listener order-pizzaArg
