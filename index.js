@@ -1,10 +1,13 @@
 const http = require("node:http");
 
 const server = http.createServer((req, res) => {
-  res.writeHead(200, { "Content-type": "text/plain" });
-  res.end("Hello world");
+  const superhero = {
+    firstName: "Bruce",
+    lastName: "Wayne",
+  };
 
-  console.log(req);
+  res.writeHead(200, { "Content-type": "application/json" });
+  res.end(JSON.stringify(superhero));
 });
 
 server.listen(3000, () => {
