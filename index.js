@@ -1,30 +1,21 @@
-const http = require("node:http");
-const fs = require("node:fs");
+const crypto = require("node:crypto");
 
-const server = http.createServer((req, res) => {
-  // res.end(req.url);
-  const url = req.url;
+const MAX_CALLS = 1;
 
-  if (url === "/") {
-    res.writeHead(200, { "Content-Type": "text/plain" });
-    res.end("Home Page");
-  } else if (url === "/about") {
-    res.writeHead(200, { "Content-Type": "text/plain" });
-    res.end("About Page");
-  } else if (url === "/api") {
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(
-      JSON.stringify({
-        firstName: "Bruce",
-        lastName: "Wayne",
-      })
-    );
-  } else {
-    res.writeHead(404);
-    res.end("Page not found");
-  }
-});
+const start = Date.now();
 
-server.listen(3000, () => {
-  console.log("Server running on port 3000");
-});
+for (let i = 0; i < MAX_CALLS; i++) {
+  crypto.pbkdf2("password", "salt", 100000, 512, "sha512", (err, derivedKey) => {
+    if (err) throw err;
+    console.log(`Hash ${i + 1}; Time taken: ${Date.now() - start}ms`);
+  });
+}
+
+
+// const start = Date.now();
+
+// crypto.pbkdf2Sync("password", "salt", 100000, 512, "sha512");
+// crypto.pbkdf2Sync("password", "salt", 100000, 512, "sha512");
+// crypto.pbkdf2Sync("password", "salt", 100000, 512, "sha512");
+
+// console.log("Hash: ", Date.now() - start);
