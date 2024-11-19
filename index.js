@@ -1,31 +1,21 @@
-const https = require("node:https");
+// console.log("Console log 1");
+// process.nextTick(() => console.log("this is process.next 1"));
+// console.log("console log 2")
 
-// const crypto = require("node:crypto");
+// Promise.resolve().then(() => console.log("this is Promise.resolve 1"));
+// process.nextTick(() => console.log("this is process.next 1"));
 
-// process.env.UV_THREADPOOL_SIZE = 16; // Or any number >= MAX_CALLS
 
-const MAX_CALLS = 5;
-const start = Date.now();
+process.nextTick(() => console.log("this is process.nextTick 1"));
+process.nextTick(() => {
+  console.log("this is process.nextTick 2");
+  process.nextTick(() => console.log("this is the inner next tick inside next tick"));
+});
+process.nextTick(() => console.log("this is process.nextTick 3"));
 
-for (let i = 0; i < MAX_CALLS; i++) {
-  // crypto.pbkdf2(
-  //   "password",
-  //   "salt",
-  //   100000,
-  //   512,
-  //   "sha512",
-  //   (err, derivedKey) => {
-  //     if (err) throw err;
-  //     console.log(`Hash ${i + 1}; Time taken: ${Date.now() - start}ms`);
-  //   }
-  // );
-
-  https
-    .request("https://www.google.com", (res) => {
-      res.on("data", () => {});
-      res.on("end", () => {
-        console.log(`Request: ${i + 1}`, Date.now() - start);
-      });
-    })
-    .end();
-}
+Promise.resolve().then(() => console.log("this is Promise.resolve 1"));
+Promise.resolve().then(() => {
+  console.log("this is Promise.resolve 2");
+  process.nextTick(() => console.log("this is the inner next tick inside Promise then block"));
+});
+Promise.resolve().then(() => console.log("this is Promise.resolve 3"));
