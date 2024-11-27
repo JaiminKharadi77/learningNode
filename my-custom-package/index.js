@@ -5,3 +5,6 @@ function greet(name) {
 }
 
 export { greet };
+
+// npm install -g nodemon installing global pacakages
+// npm uninstall -g nodemon uninstalling global packages
