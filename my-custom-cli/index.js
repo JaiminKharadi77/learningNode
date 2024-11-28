@@ -1,17 +1,8 @@
 #!/usr/bin/env node
 
 // const inquirer = require("inquirer");
-// // const yargs = require("yargs");
-// // const { argv } = yargs(process.argv);
-
-// const printFiveMoves = async (pokemonName) => {
-//   const response = await fetch(
-//     `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
-//   );
-//   const pokemon = await response.json();
-//   const moves = pokemon.moves.map(({ move }) => move.name);
-//   console.log(moves.slice(0, 5));
-// };
+const yargs = require("yargs");
+const { argv } = yargs(process.argv);
 
 // const prompt = inquirer.createPromptModule();
 // prompt([
@@ -25,12 +16,17 @@
 //   printFiveMoves(pokemon);
 // });
 
-// const pokemon = argv.pokemon;
-// printFiveMoves(pokemon);
 
-console.log("Jaimin Pokedex ");
 
-// To locally run your cli npm pacakge
-// in terminal type npm install -g
+const printFiveMoves = async (pokemonName) => {
+  const response = await fetch(
+    `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
+  );
+  const pokemon = await response.json();
+  const moves = pokemon.moves.map(({ move }) => move.name);
+  console.log(moves.slice(0, 5));
+};
 
-// then run in the terminal <package-name>
+
+const pokemon = argv.pokemon;
+printFiveMoves(pokemon);
